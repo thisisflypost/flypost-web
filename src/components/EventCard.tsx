@@ -35,7 +35,11 @@ export function EventCard({ event }: { event: Event }) {
       }}
     >
       <h1>{event.title}</h1>
-      <h2>{event.publisher.data.attributes.username}</h2>
+      <h2>
+        <a href={`/publishers/${event.publisher.data.id}`}>
+          {event.publisher.data.attributes.username}
+        </a>
+      </h2>
       <h2>
         {dateFormatter.format(new Date(event.startTime))} -{" "}
         {dateFormatter.format(new Date(event.endTime))}

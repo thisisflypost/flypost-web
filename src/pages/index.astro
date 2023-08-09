@@ -12,6 +12,7 @@ const events = await fetch("http://localhost:1337/api/events?populate=*")
 
 <Layout title="Welcome to Astro.">
 	<main>
+		<h1>All events</h1>
 		<Events events={events} />
 	</main>
 </Layout>
