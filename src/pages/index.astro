@@ -4,7 +4,7 @@ import type { Event } from "../components/EventCard";
 import type { StrapiNode } from "../types";
 import { Events } from './Events';
 
-const events = await fetch("http://localhost:1337/api/events")
+const events = await fetch("http://localhost:1337/api/events?populate=*")
   .then((response) => response.json())
   .then((response) => response.data as StrapiNode<Event>[])
   .then((eventNodes) => eventNodes.map((eventNode) => eventNode.attributes));
