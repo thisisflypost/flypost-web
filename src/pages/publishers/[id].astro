@@ -1,11 +1,11 @@
 ---
+import axios from 'axios'
 import Layout from '../../layouts/Layout.astro';
 import { FollowButton } from '../../components/FollowButton';
 
 const {id: publisherId} = Astro.params
 
-const publisher = await fetch(`http://localhost:1337/api/users/${publisherId}?populate=*`)
-  .then((response) => response.json())
+const {data: publisher} = await axios.get(`http://localhost:1337/api/users/${publisherId}?populate=*`)
 ---
 
 <Layout title="Welcome to Astro.">

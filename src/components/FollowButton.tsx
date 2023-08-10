@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
 export function FollowButton({ userId }: { userId: number }) {
@@ -8,27 +9,26 @@ export function FollowButton({ userId }: { userId: number }) {
     (async () => {
       const accessToken = localStorage.getItem("accessToken");
       if (accessToken) {
-        const currentUserId = await fetch(
-          `http://localhost:1337/api/users/me`,
-          {
+        const currentUserId = await axios
+          .get(`http://localhost:1337/api/users/me`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${accessToken}`,
             },
-          }
-        )
-          .then((response) => response.json())
+          })
+          .then((response) => response.data)
           .then((user) => user.id);
 
         setCurrentUserId(currentUserId);
 
-        await fetch(`http://localhost:1337/api/users/${userId}?populate=*`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-          .then((response) => response.json())
+        await axios
+          .get(`http://localhost:1337/api/users/${userId}?populate=*`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((response) => response.data)
           .then((user) => {
             if (
               user.followers.find(
@@ -47,36 +47,44 @@ export function FollowButton({ userId }: { userId: number }) {
   const follow = useCallback(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      fetch(`http://localhost:1337/api/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({
-          followers: {
-            connect: [currentUserId],
+      axios
+        .put(
+          `http://localhost:1337/api/users/${userId}`,
+          {
+            followers: {
+              connect: [currentUserId],
+            },
           },
-        }),
-      }).then(() => setFollowing(true));
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+        .then(() => setFollowing(true));
     }
   }, [currentUserId]);
 
   const unfollow = useCallback(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      fetch(`http://localhost:1337/api/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({
-          followers: {
-            disconnect: [currentUserId],
+      axios
+        .put(
+          `http://localhost:1337/api/users/${userId}`,
+          {
+            followers: {
+              disconnect: [currentUserId],
+            },
           },
-        }),
-      }).then(() => setFollowing(false));
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+        .then(() => setFollowing(false));
     }
   }, [currentUserId]);
 

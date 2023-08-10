@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   FormEvent,
   SyntheticEvent,
@@ -13,16 +14,24 @@ export function User() {
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      fetch(`http://localhost:1337/api/users/me?populate=*`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then((response) => response.json())
+      axios
+        .get(`http://localhost:1337/api/users/me?populate=*`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((response) => response.data)
         .then((user) => {
           setEmail(user.email);
           setFollowingCount(user.following.length);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            localStorage.removeItem("accessToken");
+          } else {
+            console.error(error);
+          }
         });
     }
   }, []);
@@ -31,19 +40,15 @@ export function User() {
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      const response = await fetch(`http://localhost:1337/api/auth/local`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: formData.get("email"),
-          password: formData.get("password"),
-        }),
-      }).then((response) => response.json());
+      const {
+        data: { jwt, user },
+      } = await axios.post(`http://localhost:1337/api/auth/local`, {
+        identifier: formData.get("email"),
+        password: formData.get("password"),
+      });
 
-      if (response.jwt && response.user) {
-        localStorage.setItem("accessToken", response.jwt);
+      if (jwt && user) {
+        localStorage.setItem("accessToken", jwt);
       }
     },
     []
