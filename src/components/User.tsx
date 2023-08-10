@@ -8,18 +8,22 @@ import {
 
 export function User() {
   const [email, setEmail] = useState<string>();
+  const [followingCount, setFollowingCount] = useState<number>();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      fetch(`http://localhost:1337/api/users/me`, {
+      fetch(`http://localhost:1337/api/users/me?populate=*`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       })
         .then((response) => response.json())
-        .then((user) => setEmail(user.email));
+        .then((user) => {
+          setEmail(user.email);
+          setFollowingCount(user.following.length);
+        });
     }
   }, []);
 
@@ -48,7 +52,12 @@ export function User() {
   return (
     <div>
       {email ? (
-        <span>{email}</span>
+        <>
+          <span>{email}</span>{" "}
+          {followingCount && followingCount > 0 ? (
+            <span>Following ({followingCount})</span>
+          ) : null}
+        </>
       ) : (
         <form onSubmit={handleSubmit}>
           Email: <input name="email" type="email" />
