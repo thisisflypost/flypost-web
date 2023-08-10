@@ -1,4 +1,4 @@
-import { EventCard, type Event } from "../components/EventCard";
+import { EventCard, type Event } from "./EventCard";
 
 export function Events({ events }: { events: Event[] }) {
   return (

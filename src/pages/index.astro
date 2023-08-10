@@ -1,13 +1,19 @@
 ---
 import axios from 'axios'
 import Layout from '../layouts/Layout.astro';
-import type { Event } from "../components/EventCard";
-import type { StrapiNode } from "../types";
-import { Events } from './Events';
+import { Events } from '../components/Events';
 
 const events = await axios.get("http://localhost:1337/api/events?populate=*")
-  .then((response) => response.data.data as StrapiNode<Event>[])
-  .then((eventNodes) => eventNodes.map((eventNode) => eventNode.attributes));
+  .then((response) => response.data.data)
+  .then((eventNodes) => eventNodes.map((eventNode: { attributes: { publisher: { data: { id: any; attributes: { username: any; }; }; }; }; }) => {
+		return {
+			...eventNode.attributes,
+			publisher: {
+				id: eventNode.attributes.publisher.data.id,
+				username: eventNode.attributes.publisher.data.attributes.username,
+			}
+		}
+	}));
 ---
 
 <Layout title="Welcome to Astro.">

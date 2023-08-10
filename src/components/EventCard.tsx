@@ -1,4 +1,5 @@
 interface Publisher {
+  id: number;
   username: string;
 }
 
@@ -6,12 +7,7 @@ export interface Event {
   title: string;
   startTime: string;
   endTime: string;
-  publisher: {
-    data: {
-      id: number;
-      attributes: Publisher;
-    };
-  };
+  publisher: Publisher;
 }
 
 const dateFormatter = new Intl.DateTimeFormat("en-IE", {
@@ -36,8 +32,8 @@ export function EventCard({ event }: { event: Event }) {
     >
       <h1>{event.title}</h1>
       <h2>
-        <a href={`/publishers/${event.publisher.data.id}`}>
-          {event.publisher.data.attributes.username}
+        <a href={`/publishers/${event.publisher.id}`}>
+          {event.publisher.username}
         </a>
       </h2>
       <h2>
