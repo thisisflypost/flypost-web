@@ -60,7 +60,9 @@ export function User() {
         <>
           <span>{email}</span>{" "}
           {followingCount && followingCount > 0 ? (
-            <span>Following ({followingCount})</span>
+            <span>
+              <a href="/events/following">Following ({followingCount})</a>
+            </span>
           ) : null}
         </>
       ) : (
