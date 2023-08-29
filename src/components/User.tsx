@@ -15,7 +15,7 @@ export function User() {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       axios
-        .get(`http://localhost:1337/api/users/me?populate=*`, {
+        .get(`${import.meta.env.PUBLIC_API_PREFIX}users/me?populate=*`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
@@ -42,7 +42,7 @@ export function User() {
       const formData = new FormData(event.currentTarget);
       const {
         data: { jwt, user },
-      } = await axios.post(`http://localhost:1337/api/auth/local`, {
+      } = await axios.post(`${import.meta.env.PUBLIC_API_PREFIX}auth/local`, {
         identifier: formData.get("email"),
         password: formData.get("password"),
       });

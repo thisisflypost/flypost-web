@@ -3,7 +3,7 @@ import axios from 'axios'
 import Layout from '../layouts/Layout.astro';
 import { Events } from '../components/Events';
 
-const events = await axios.get("http://localhost:1337/api/events?populate=*")
+const events = await axios.get(`${import.meta.env.PUBLIC_API_PREFIX}events?populate=*`)
   .then((response) => response.data.data)
   .then((eventNodes) => eventNodes.map((eventNode: { attributes: { publisher: { data: { id: any; attributes: { username: any; }; }; }; }; }) => {
 		return {

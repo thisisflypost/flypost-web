@@ -5,7 +5,7 @@ import { FollowButton } from '../../components/FollowButton';
 
 const {id: publisherId} = Astro.params
 
-const {data: publisher} = await axios.get(`http://localhost:1337/api/users/${publisherId}?populate=*`)
+const {data: publisher} = await axios.get(`${import.meta.env.PUBLIC_API_PREFIX}users/${publisherId}?populate=*`)
 ---
 
 <Layout title="Welcome to Astro.">

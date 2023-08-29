@@ -10,7 +10,7 @@ export function FollowButton({ userId }: { userId: number }) {
       const accessToken = localStorage.getItem("accessToken");
       if (accessToken) {
         const currentUserId = await axios
-          .get(`http://localhost:1337/api/users/me`, {
+          .get(`${import.meta.env.PUBLIC_API_PREFIX}users/me`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${accessToken}`,
@@ -22,7 +22,7 @@ export function FollowButton({ userId }: { userId: number }) {
         setCurrentUserId(currentUserId);
 
         await axios
-          .get(`http://localhost:1337/api/users/${userId}?populate=*`, {
+          .get(`${import.meta.env.PUBLIC_API_PREFIX}users/${userId}?populate=*`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${accessToken}`,
@@ -49,7 +49,7 @@ export function FollowButton({ userId }: { userId: number }) {
     if (accessToken) {
       axios
         .put(
-          `http://localhost:1337/api/users/${userId}`,
+          `${import.meta.env.PUBLIC_API_PREFIX}users/${userId}`,
           {
             followers: {
               connect: [currentUserId],
@@ -71,7 +71,7 @@ export function FollowButton({ userId }: { userId: number }) {
     if (accessToken) {
       axios
         .put(
-          `http://localhost:1337/api/users/${userId}`,
+          `${import.meta.env.PUBLIC_API_PREFIX}users/${userId}`,
           {
             followers: {
               disconnect: [currentUserId],

@@ -8,7 +8,7 @@ export function FollowingPage() {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       axios
-        .get(`http://localhost:1337/api/users/me/following-events`, {
+        .get(`${import.meta.env.PUBLIC_API_PREFIX}users/me/following-events`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
