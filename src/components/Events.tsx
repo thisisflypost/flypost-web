@@ -4,7 +4,7 @@ export function Events({ events }: { events: Event[] }) {
   return (
     <div>
       {events.map((event) => (
-        <EventCard event={event} />
+        <EventCard key={`${event.publisher}${event.title}`} event={event} />
       ))}
     </div>
   );

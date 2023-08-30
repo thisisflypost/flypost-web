@@ -1,7 +1,6 @@
 import axios from "axios";
 import {
-  FormEvent,
-  SyntheticEvent,
+  type FormEvent,
   useCallback,
   useEffect,
   useState,
