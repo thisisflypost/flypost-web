@@ -49,9 +49,16 @@ export function User() {
       if (jwt && user) {
         localStorage.setItem("accessToken", jwt);
       }
+
+      window.location.reload()
     },
     []
   );
+
+  const handleSignout = useCallback(() => {
+    localStorage.removeItem("accessToken");
+    window.location.reload()
+  }, [])
 
   return (
     <div>
@@ -62,7 +69,8 @@ export function User() {
             <span>
               <a href="/events/following">Following ({followingCount})</a>
             </span>
-          ) : null}
+          ) : null}{' '}
+          <button onClick={handleSignout}>Sign out</button>
         </>
       ) : (
         <form onSubmit={handleSubmit}>
