@@ -12,7 +12,7 @@ const {data: publisher} = await axios.get(`${import.meta.env.PUBLIC_API_PREFIX}u
 	<main>
     <a href="/">Home</a>
 		<h1>{publisher.username}</h1>
-    <FollowButton userId={publisher.id} client:load />
+    <FollowButton publisherId={publisher.id} client:load />
     <h2>Upcoming events</h2>
     <ul>
       {publisher.events.map((event: { title: string; }) => (
