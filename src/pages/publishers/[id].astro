@@ -6,7 +6,7 @@ import { FollowButton } from "../../components/FollowButton";
 const { id: publisherId } = Astro.params;
 
 const { data: publisher } = await axios.get(
-  `${import.meta.env.VITE_API_BASE_URL}users/${publisherId}?populate=*`
+  `${import.meta.env.PUBLIC_API_BASE_URL}users/${publisherId}?populate=*`
 );
 ---
 

@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import { Events } from "../components/Events";
 
 const events = await axios
-  .get(`${import.meta.env.VITE_API_BASE_URL}events?populate=*`)
+  .get(`${import.meta.env.PUBLIC_API_BASE_URL}events?populate=*`)
   .then((response) => response.data.data)
   .then((eventNodes) =>
     eventNodes.map(

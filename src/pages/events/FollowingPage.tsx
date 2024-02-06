@@ -22,7 +22,7 @@ export function FollowingPage() {
       }
     );
     axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}users?${query}`)
+      .get(`${import.meta.env.PUBLIC_API_BASE_URL}users?${query}`)
       .then((response) =>
         response.data.flatMap((publisherNode: any) => {
           return publisherNode.events.map((eventNode: any) => ({
