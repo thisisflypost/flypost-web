@@ -1,23 +1,27 @@
 ---
-import axios from 'axios'
-import Layout from '../../layouts/Layout.astro';
-import { FollowButton } from '../../components/FollowButton';
+import axios from "axios";
+import Layout from "../../layouts/Layout.astro";
+import { FollowButton } from "../../components/FollowButton";
 
-const {id: publisherId} = Astro.params
+const { id: publisherId } = Astro.params;
 
-const {data: publisher} = await axios.get(`${import.meta.env.PUBLIC_API_PREFIX}users/${publisherId}?populate=*`)
+const { data: publisher } = await axios.get(
+  `${import.meta.env.VITE_API_BASE_URL}users/${publisherId}?populate=*`
+);
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
+  <main>
     <a href="/">Home</a>
-		<h1>{publisher.username}</h1>
+    <h1>{publisher.username}</h1>
     <FollowButton publisherId={publisher.id} client:load />
     <h2>Upcoming events</h2>
     <ul>
-      {publisher.events.map((event: { title: string; }) => (
-        <li>{event.title}</li>
-      ))}
+      {
+        publisher.events.map((event: { title: string }) => (
+          <li>{event.title}</li>
+        ))
+      }
     </ul>
-	</main>
+  </main>
 </Layout>
