@@ -1,24 +1,33 @@
 ---
-import axios from 'axios'
-import Layout from '../layouts/Layout.astro';
-import { Events } from '../components/Events';
+import axios from "axios";
+import Layout from "../layouts/Layout.astro";
+import { Events } from "../components/Events";
 
-const events = await axios.get(`${import.meta.env.PUBLIC_API_PREFIX}events?populate=*`)
+const events = await axios
+  .get(`${import.meta.env.PUBLIC_API_PREFIX}events?populate=*`)
   .then((response) => response.data.data)
-  .then((eventNodes) => eventNodes.map((eventNode: { attributes: { publisher: { data: { id: any; attributes: { username: any; }; }; }; }; }) => {
-		return {
-			...eventNode.attributes,
-			publisher: {
-				id: eventNode.attributes.publisher.data.id,
-				username: eventNode.attributes.publisher.data.attributes.username,
-			}
-		}
-	}));
+  .then((eventNodes) =>
+    eventNodes.map(
+      (eventNode: {
+        attributes: {
+          publisher: { data: { id: any; attributes: { username: any } } };
+        };
+      }) => {
+        return {
+          ...eventNode.attributes,
+          publisher: {
+            id: eventNode.attributes.publisher.data.id,
+            username: eventNode.attributes.publisher.data.attributes.username,
+          },
+        };
+      }
+    )
+  );
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-		<h1>All events</h1>
-		<Events events={events} />
-	</main>
+  <main>
+    <h1>All events</h1>
+    <Events events={events} />
+  </main>
 </Layout>
