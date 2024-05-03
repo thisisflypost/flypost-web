@@ -11,10 +11,10 @@ export function User() {
   }, []);
 
   return (
-    <div>
+    <div className="text-right">
       {followedOrganizers.length > 0 ? (
-        <span>
-          <a href="/events/following">
+        <span className="text-white">
+          <a className="underline font-bold" href="/events/following">
             Following ({followedOrganizers.length})
           </a>
         </span>
