@@ -1,0 +1,29 @@
+---
+import axios from "axios";
+import Layout from "../../layouts/Layout.astro";
+import { FollowButton } from "../../components/FollowButton";
+
+const { id: organizerId } = Astro.params;
+
+const { data: organizer } = await axios.get(
+  `${import.meta.env.PUBLIC_API_BASE_URL}organizers/${organizerId}?populate=*`
+);
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <a href="/">Home</a>
+    <h1>{organizer.data.attributes.title}</h1>
+    <FollowButton organizerId={organizer.data.id} client:load />
+    <h2>Upcoming events</h2>
+    <ul>
+      {
+        organizer.data.attributes.events.data.map(
+          (event: { attributes: { title: string } }) => (
+            <li>{event.attributes.title}</li>
+          )
+        )
+      }
+    </ul>
+  </main>
+</Layout>

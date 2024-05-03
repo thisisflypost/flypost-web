@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  addFollowedPublisher,
-  getFollowedPublishers,
-  removeFollowedPublisher,
+  addFollowedOrganizer,
+  getFollowedOrganizers,
+  removeFollowedOrganizer,
 } from "../utils/localStorage";
 
-export function FollowButton({ publisherId }: { publisherId: number }) {
+export function FollowButton({ organizerId }: { organizerId: number }) {
   const [following, setFollowing] = useState<boolean>();
 
   useEffect(() => {
-    const followedPublishers = getFollowedPublishers();
-    if (followedPublishers.includes(publisherId)) {
+    const followedOrganizers = getFollowedOrganizers();
+    if (followedOrganizers.includes(organizerId)) {
       setFollowing(true);
     } else {
       setFollowing(false);
@@ -18,12 +18,12 @@ export function FollowButton({ publisherId }: { publisherId: number }) {
   }, []);
 
   const follow = useCallback(() => {
-    addFollowedPublisher(publisherId);
+    addFollowedOrganizer(organizerId);
     setFollowing(true);
   }, []);
 
   const unfollow = useCallback(() => {
-    removeFollowedPublisher(publisherId);
+    removeFollowedOrganizer(organizerId);
     setFollowing(false);
   }, []);
 

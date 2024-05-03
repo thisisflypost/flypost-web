@@ -1,13 +1,13 @@
-interface Publisher {
+interface Organizer {
   id: number;
-  username: string;
+  title: string;
 }
 
 export interface Event {
   title: string;
   startTime: string;
   endTime: string;
-  publisher: Publisher;
+  organizers: Organizer[];
 }
 
 const dateFormatter = new Intl.DateTimeFormat("en-IE", {
@@ -32,9 +32,9 @@ export function EventCard({ event }: { event: Event }) {
     >
       <h1>{event.title}</h1>
       <h2>
-        <a href={`/publishers/${event.publisher.id}`}>
-          {event.publisher.username}
-        </a>
+        {event.organizers.map((organizer) => (
+          <a href={`/organizers/${organizer.id}`}>{organizer.title}</a>
+        ))}
       </h2>
       <h2>
         {dateFormatter.format(new Date(event.startTime))} -{" "}
