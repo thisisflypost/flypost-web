@@ -22,18 +22,13 @@ const dateFormatter = new Intl.DateTimeFormat("en-IE", {
 
 export function EventCard({ event }: { event: Event }) {
   return (
-    <div
-      style={{
-        borderWidth: 1,
-        borderColor: "black",
-        borderStyle: "solid",
-        padding: 20,
-      }}
-    >
-      <h1>{event.title}</h1>
-      <h2>
+    <div>
+      <h1 className="text-center font-bold text-lg">{event.title}</h1>
+      <h2 className="text-center">
         {event.organizers.map((organizer) => (
-          <a href={`/organizers/${organizer.id}`}>{organizer.title}</a>
+          <a className="underline" href={`/organizers/${organizer.id}`}>
+            {organizer.title}
+          </a>
         ))}
       </h2>
       <h2>
