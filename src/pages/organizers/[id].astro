@@ -12,7 +12,6 @@ const { data: organizer } = await axios.get(
 
 <Layout title="Welcome to Astro.">
   <main>
-    <a href="/">Home</a>
     <h1>{organizer.data.attributes.title}</h1>
     <FollowButton organizerId={organizer.data.id} client:load />
     <h2>Upcoming events</h2>
