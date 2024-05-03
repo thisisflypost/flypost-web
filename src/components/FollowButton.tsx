@@ -4,6 +4,7 @@ import {
   getFollowedOrganizers,
   removeFollowedOrganizer,
 } from "../utils/localStorage";
+import { Button } from "./Button";
 
 export function FollowButton({ organizerId }: { organizerId: number }) {
   const [following, setFollowing] = useState<boolean>();
@@ -29,9 +30,9 @@ export function FollowButton({ organizerId }: { organizerId: number }) {
 
   if (following !== undefined) {
     if (!following) {
-      return <button onClick={follow}>follow</button>;
+      return <Button onClick={follow}>follow</Button>;
     }
 
-    return <button onClick={unfollow}>unfollow</button>;
+    return <Button onClick={unfollow}>unfollow</Button>;
   }
 }
