@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 
-import { getFollowedPublishers } from "../utils/localStorage";
+import { getFollowedOrganizers } from "../utils/localStorage";
 
 export function User() {
-  const [followedPublishers, setFollowedPublishers] = useState<number[]>([]);
+  const [followedOrganizers, setFollowedOrganizers] = useState<number[]>([]);
 
   useEffect(() => {
-    const storedFollowedPublishers = getFollowedPublishers();
-    setFollowedPublishers(storedFollowedPublishers);
+    const storedFollowedOrganizers = getFollowedOrganizers();
+    setFollowedOrganizers(storedFollowedOrganizers);
   }, []);
 
   return (
     <div>
-      {followedPublishers.length > 0 ? (
+      {followedOrganizers.length > 0 ? (
         <span>
           <a href="/events/following">
-            Following ({followedPublishers.length})
+            Following ({followedOrganizers.length})
           </a>
         </span>
       ) : null}

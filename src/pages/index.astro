@@ -10,15 +10,17 @@ const events = await axios
     eventNodes.map(
       (eventNode: {
         attributes: {
-          publisher: { data: { id: any; attributes: { username: any } } };
+          organizers: { data: { id: any; attributes: { title: any } }[] };
         };
       }) => {
         return {
           ...eventNode.attributes,
-          publisher: {
-            id: eventNode.attributes.publisher.data.id,
-            username: eventNode.attributes.publisher.data.attributes.username,
-          },
+          organizers: eventNode.attributes.organizers.data.map(
+            ({ id, attributes }) => ({
+              id,
+              title: attributes.title,
+            })
+          ),
         };
       }
     )

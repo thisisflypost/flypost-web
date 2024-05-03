@@ -1,25 +1,25 @@
-function validateParsedFollowedPublisher(input: any[]): input is number[] {
+function validateParsedFollowedOrganizer(input: any[]): input is number[] {
   return input.every(
-    (followedPublisher) => typeof followedPublisher === "number"
+    (followedOrganizer) => typeof followedOrganizer === "number"
   );
 }
 
-export function getFollowedPublishers() {
-  const serializedFollowedPublishers =
-    localStorage.getItem("followedPublishers");
-  if (serializedFollowedPublishers) {
+export function getFollowedOrganizers() {
+  const serializedFollowedOrganizers =
+    localStorage.getItem("followedOrganizers");
+  if (serializedFollowedOrganizers) {
     try {
-      const parsedFollowedPublishers = JSON.parse(serializedFollowedPublishers);
+      const parsedFollowedOrganizers = JSON.parse(serializedFollowedOrganizers);
       if (
-        Array.isArray(parsedFollowedPublishers) &&
-        validateParsedFollowedPublisher(parsedFollowedPublishers)
+        Array.isArray(parsedFollowedOrganizers) &&
+        validateParsedFollowedOrganizer(parsedFollowedOrganizers)
       ) {
-        return parsedFollowedPublishers;
+        return parsedFollowedOrganizers;
       } else {
-        throw new Error("Invalid format of serialized followed publishers");
+        throw new Error("Invalid format of serialized followed organizers");
       }
     } catch (e) {
-      console.error("Unable to retrieve followed publishers.", e);
+      console.error("Unable to retrieve followed organizers.", e);
       return [];
     }
   } else {
@@ -27,30 +27,30 @@ export function getFollowedPublishers() {
   }
 }
 
-export function addFollowedPublisher(publisherId: number) {
-  const followedPublishers = getFollowedPublishers();
-  if (!followedPublishers.includes(publisherId)) {
-    const updatedSerializedFollowedPublishers = JSON.stringify([
-      ...followedPublishers,
-      publisherId,
+export function addFollowedOrganizer(organizerId: number) {
+  const followedOrganizers = getFollowedOrganizers();
+  if (!followedOrganizers.includes(organizerId)) {
+    const updatedSerializedFollowedOrganizers = JSON.stringify([
+      ...followedOrganizers,
+      organizerId,
     ]);
     localStorage.setItem(
-      "followedPublishers",
-      updatedSerializedFollowedPublishers
+      "followedOrganizers",
+      updatedSerializedFollowedOrganizers
     );
   }
 }
 
-export function removeFollowedPublisher(publisherId: number) {
-  const followedPublishers = getFollowedPublishers();
-  const updatedFollowedPublishers = followedPublishers.filter(
-    (id) => id !== publisherId
+export function removeFollowedOrganizer(organizerId: number) {
+  const followedOrganizers = getFollowedOrganizers();
+  const updatedFollowedOrganizers = followedOrganizers.filter(
+    (id) => id !== organizerId
   );
-  const updatedSerializedFollowedPublishers = JSON.stringify(
-    updatedFollowedPublishers
+  const updatedSerializedFollowedOrganizers = JSON.stringify(
+    updatedFollowedOrganizers
   );
   localStorage.setItem(
-    "followedPublishers",
-    updatedSerializedFollowedPublishers
+    "followedOrganizers",
+    updatedSerializedFollowedOrganizers
   );
 }
