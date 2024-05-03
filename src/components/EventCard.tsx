@@ -8,6 +8,7 @@ export interface Event {
   startTime: string;
   endTime: string;
   organizers: Organizer[];
+  description: string;
 }
 
 const dateFormatter = new Intl.DateTimeFormat("en-IE", {
@@ -35,6 +36,7 @@ export function EventCard({ event }: { event: Event }) {
         {dateFormatter.format(new Date(event.startTime))} -{" "}
         {dateFormatter.format(new Date(event.endTime))}
       </h2>
+      <p>{event.description}</p>
     </div>
   );
 }
