@@ -20,12 +20,12 @@ export function FollowButton({ organizerId }: { organizerId: number }) {
 
   const follow = useCallback(() => {
     addFollowedOrganizer(organizerId);
-    setFollowing(true);
+    window.location.reload();
   }, []);
 
   const unfollow = useCallback(() => {
     removeFollowedOrganizer(organizerId);
-    setFollowing(false);
+    window.location.reload();
   }, []);
 
   if (following !== undefined) {
