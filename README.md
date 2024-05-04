@@ -1,32 +1,20 @@
 # flyPost (client)
 
-## 🚀 Project Structure
+The web browser client for the [flyPost server](https://github.com/tewson/flypost-prototype).
 
-Inside of your Astro project, you'll see the following folders and files:
+## Getting started
 
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+This project is based on the [Astro web framework](https://astro.build/) with React components.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Environment variables
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+During development, set environment variables in `.env`.
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Name                  | Usage                                                                       |
+| :-------------------- | :-------------------------------------------------------------------------- |
+| `PUBLIC_API_BASE_URL` | Base URL for the flyPost server Strapi API, e.g. http://localhost:1337/api/ |
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
+### Commands
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
@@ -39,4 +27,6 @@ All commands are run from the root of the project, from a terminal:
 
 ## Deployment
 
-Set environment variables in a `.env` file. Then run `fly deploy`.
+### Deploying to Fly.io
+
+Set environment variables in `.env.production` and run `fly deploy`.
